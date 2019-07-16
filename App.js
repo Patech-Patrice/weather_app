@@ -9,28 +9,51 @@ import SearchInput from './components/SearchInput';
 // the ImageBackground component is a view with an image nested within.  The source prop accepts an image location; uses the prop style for styling the view container and the prop imagestyle for styling the image itself.
 
 export default class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+  
+      location: 'San Francisco',
+    };
+  }
+
+  handleUpdateLocation = city => {
+    this.setState({
+      location: city,
+    });
+  };
+
+
+
   render() {
-    return (
-    <KeyboardAvoidingView style={styles.container}
+    const { location } = this.state;
+
+
+    return  (
+
+    <KeyboardAvoidingView 
+      style={styles.container}
       behavior="padding"
       >
         <ImageBackground 
          source={getImageForWeather('Clear')}
          style={styles.imageContainer}
-         imageStyle={styles.image} >
+         imageStyle={styles.image} 
+         >
 
         <View style={styles.detailsContainer}>
-          
-            
-             <Text style={[styles.largeText, styles.textStyle]}>San Francisco</Text>
+            <Text style={[styles.largeText, styles.textStyle]}>San Francisco</Text>
              <Text style={[styles.smallText, styles.textStyle]}> Light Cloud</Text>
              <Text style={[styles.largeText, styles.textStyle]}>24°</Text>
-
-             <SearchInput placeholder="Search any City" />
+             
+             <SearchInput 
+                placeholder="Search any City"
+                onSubmit={this.handleUpdateLocation} 
+              />
         </View>     
-          </ImageBackground>  
+    </ImageBackground>  
         
-      </KeyboardAvoidingView>
+</KeyboardAvoidingView>
     );
   }
 }
